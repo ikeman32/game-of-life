@@ -8,22 +8,22 @@ html, body{
         //display: flex;
         flex-direction: column;
         width: 90%;
-        height: 100vh;
+        height: 110vh;
         //min-height: 100%;
-        border: 2px solid blue;
+        // border: 2px solid blue;
         margin: 0 auto;
         
 
         header{
             max-width: 100%;
-            border: 1px solid red;
+            // border: 1px solid red;
             
 
             #title{
                 margin: 0 auto;
                 margin-top: 1rem;
-                max-width: 20%;
-                border: 1px solid white;
+                max-width: 30%;
+                // border: 1px solid white;
                 font-size: 2rem;
             }//Bottom of title
         }//Bottom of header
@@ -31,7 +31,7 @@ html, body{
         .container{
             position: relative;
             display: block;
-            height: 94%;
+            height: 96%;
             
             max-width: 100%;
             border: 1px solid red;
@@ -43,7 +43,7 @@ html, body{
                 margin-top: 1rem;
             }//Bottom game
             .rules{
-                border: 2px solid yellow;
+                // border: 2px solid yellow;
                 float: right;
                 width: 40%;
                 height: 65%;
@@ -59,13 +59,27 @@ html, body{
             .about{
                 border: 2px solid green;
                 height: 30%;
-                margin-top: 35%;
+                margin-top: 39%;
                 padding-right: 1rem;
                 padding-left: 1rem;
+                
+                a{
+                    color: plum;
+                    text-decoration: none;
+                }
             }//Bottom rules
         }//Bottom container
 
-        
+        footer{
+            margin-top: 2rem;
+            max-width: 100%;
+            // border: 1px solid white;
+            p{
+                margin: 0 auto;
+                width: 10%;
+                // border: 1px solid green;
+            }
+        }
     }//Bottom of App Class
 }//Bottom of body
 
