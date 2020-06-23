@@ -1,0 +1,21 @@
+#outter{
+    
+    #inner{
+        margin: auto;
+        width: 40%;
+        height: auto;
+        table{
+            text-align: center;
+            margin: auto;
+            height: auto;
+            width: 500px;
+            //border: 1px solid white;
+            table-layout: fixed;
+            border-collapse: collapse;
+            border-spacing: 0;
+            
+        }//table
+    }//inner
+
+}
+
