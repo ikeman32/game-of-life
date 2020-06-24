@@ -6,10 +6,14 @@ class Board extends Component {
         super(props);
 
         this.state = {
-            //Declare an 1D array with the length of 50
-            'grid': Array(50).fill().map(x => Array(50).fill('+')),
-            //'nextGen': Array(50).fill().map()(x => Array(50).fill('+')),
+            //Determine if a square is zero or not
+            'isZero': true,
+            //Declare an 2D array with the length of 50
+            //Fill array with zeros
+            'grid': Array(50).fill().map(x => Array(50).fill(0)),
         };
+        this.handlePattern = this.handlePattern.bind(this)
+        this.handleState = this.handleState.bind(this)
     }
 
     handleStart() {
@@ -22,11 +26,29 @@ class Board extends Component {
         alert('You clicked stop')
     }
 
+    handleState(x,y){
+        if(this.state.grid[x][y] === 0){
+            const g = this.state.grid
+            g[x][y] = this.state.isZero === true ? 'burlywood': 'black';
+
+            this.setState({'grid': g, 'isZero': !this.state.isZero});
+        }
+    }
+
     handlePattern(e) {
         //Insert pattern
+        var nextGeneration = this.state.grid
         switch (e.target.value) {
             case 'Random':
-                alert('You clicked Random')
+                //alert('You clicked Random');
+                for(let i = 0; i < 50; i++){
+                    for(let j = 0; j < 50; j++){
+                        nextGeneration[i][j] = (Math.floor(Math.random() * 2))
+                    }
+                }
+                //Update state of grid
+                this.setState({grid:nextGeneration})
+                //console.table(this.state.grid)
                 break;
             case 'Pattern1':
                 alert('You clicked Pattern1')
@@ -44,21 +66,21 @@ class Board extends Component {
 
     render() {
         const g = this.state.grid;
+        //const ng = this.state.nextGen;
 
         //Put array into a board
-        const board = g.map((row, i) => {
+        let board = g.map((row, i) => {
             return (
-                //Loop through array and add an array to each slot of the array
-                //to create a 2D array
                 <tr key={'row_' + i}>
                     {row.map((col, j) => {
-                        return (<Square key={i + '_' + j} />)
+                        const color_ = g[i][j] === 0 ? 'burlywood': 'black';
+                        return (<Square handleState={()=> this.handleState(i,j)} color={color_} key={i + '_' + j} />)
                     })}
                 </tr>
             )
 
         });
-
+        
         //Render the board
         return (
             <div id='outter' style={{ width: '100%' }}>
