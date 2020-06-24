@@ -10,7 +10,8 @@ class Square extends Component {
                     width: '5px',
                     height: '5px',
                     border: '.5px solid black',
-                    backgroundColor: 'burlywood'
+                    backgroundColor: 'burlywood',
+                    borderColor: 'black'
                 }
                 }
             >
@@ -18,7 +19,8 @@ class Square extends Component {
                     style={{
                         border:"1px solid",
                         backgroundColor: color_,
-                        height: '5px'
+                        height: '5px',
+                        borderColor: color_
                     }}
                 ></div>
             </td >

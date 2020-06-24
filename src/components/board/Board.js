@@ -26,12 +26,12 @@ class Board extends Component {
         alert('You clicked stop')
     }
 
-    handleState(x,y){
-        if(this.state.grid[x][y] === 0){
+    handleState(x, y) {
+        if (this.state.grid[x][y] === 0) {
             const g = this.state.grid
-            g[x][y] = this.state.isZero === true ? 'burlywood': 'black';
+            g[x][y] = this.state.isZero === true ? 'burlywood' : 'black';
 
-            this.setState({'grid': g, 'isZero': !this.state.isZero});
+            this.setState({ 'grid': g, 'isZero': !this.state.isZero });
         }
     }
 
@@ -41,13 +41,13 @@ class Board extends Component {
         switch (e.target.value) {
             case 'Random':
                 //alert('You clicked Random');
-                for(let i = 0; i < 50; i++){
-                    for(let j = 0; j < 50; j++){
+                for (let i = 0; i < 50; i++) {
+                    for (let j = 0; j < 50; j++) {
                         nextGeneration[i][j] = (Math.floor(Math.random() * 2))
                     }
                 }
                 //Update state of grid
-                this.setState({grid:nextGeneration})
+                this.setState({ grid: nextGeneration })
                 //console.table(this.state.grid)
                 break;
             case 'Pattern1':
@@ -66,26 +66,26 @@ class Board extends Component {
 
     render() {
         const g = this.state.grid;
-        //const ng = this.state.nextGen;
+
 
         //Put array into a board
         let board = g.map((row, i) => {
             return (
                 <tr key={'row_' + i}>
                     {row.map((col, j) => {
-                        const color_ = g[i][j] === 0 ? 'burlywood': 'black';
-                        return (<Square handleState={()=> this.handleState(i,j)} color={color_} key={i + '_' + j} />)
+                        const color_ = g[i][j] === 0 ? 'burlywood' : 'black';
+                        return (<Square handleState={() => this.handleState(i, j)} color={color_} key={i + '_' + j} />)
                     })}
                 </tr>
             )
 
         });
-        
+
         //Render the board
         return (
             <div id='outter' style={{ width: '100%' }}>
                 <div id='inner' style={{ width: '100%' }}>
-                    <table cellSpacing='0' style={{ float: 'left' }}>
+                    <table cellSpacing='0' style={{ float: 'left', border: '.5px solid black' }}>
                         <tbody>
                             {board}
                         </tbody>
