@@ -11,7 +11,7 @@ class Board extends Component {
             'isZero': true,
             //Declare an 2D array with the length of 50
             //Fill array with zeros
-            'grid': Array(50).fill().map(x => Array(50).fill(0)),
+            'grid': new Array(50).fill([]).map(x => new Array(50).fill(0)),
         };
         this.handlePattern = this.handlePattern.bind(this)
         this.handleState = this.handleState.bind(this)
@@ -20,52 +20,60 @@ class Board extends Component {
         this.countCells = this.countCells.bind(this)
         this.handleLoop = this.handleLoop.bind(this)
     }
-    componentWillMount(){
-        this.handleLoop(this.state.isRunning)
+
+    componentDidUpdate(){
+        
+        
     }
 
-    componentWillUnmount(){
-        this.handleLoop(this.state.isRunning)
-    }
+    // componentWillUnmount(){
+    //     clearInterval(this.interval)
+    // }
 
-
-    handleLoop(running) {
-        //alert("It's running!")
-        let nextGen = Array(50).fill().map(x => Array(50).fill(0))
-        while (running === true) {
+    handleLoop() {
+        //alert(running)
+        
+        //let interval = 0
+        if (this.state.isRunning) {
+            //interval += 1
+            let nextGen = new Array(50).fill([]).map(x => new Array(50).fill(0))
             for (let i = 0; i < 50; i++) {
-                for (let j = 0; i < 50; j++) {
-                    let cells = this.countCells(nextGen, i, j)
-                    if (nextGen[i][j] === 0 && cells === 3) {
+                for (let j = 0; j < 50; j++) {
+                    let cells= this.countCells(this.state.grid, i, j)
+                    if (this.state.grid[i][j] === 0 && cells === 3) {
                         nextGen[i][j] = 1
                         //alert("yep")
                     }
-                    else if (nextGen[i][j] === 1 && (cells < 2 || cells > 3)) {
+                    else if (this.state.grid[i][j] === 1 && (cells < 2 || cells > 3)) {
                         nextGen[i][j] = 0
                         //alert("yep")
                     }
                     else {
-                        nextGen[i][j] = nextGen
+                        nextGen[i][j] = this.state.grid[i][j]
                         //alert("yep")
                     }
-                    
+                    //console.table("cells",cells)
                 }
 
             }
-            console.log("next", nextGen)
-            this.setState({ 'grid': nextGen })
+            
+            this.setState({ grid: nextGen })
+            //if(!interval===1000) start_position:;
+            //break;
         }
     }
 
     handleStart() {
-        //Start the game
-        this.setState({ 'isRunning': true })
         
+        //Start the game
+        this.setState({ 'isRunning': true },()=>this.handleLoop())
+        
+
     }
 
     handleStop() {
         //Stop the game
-        this.setState({ 'isRunning': false } )
+        this.setState({ 'isRunning': false }, ()=> this.handleLoop())
 
     }
 
@@ -85,12 +93,14 @@ class Board extends Component {
 
     handleState(x, y) {
         const g = this.state.grid
+        
+        
         if (this.state.grid[x][y] === 0) {
             g[x][y] = this.state.isZero === true ? 'burlywood' : 'black';
 
             this.setState({ 'grid': g, 'isZero': !this.state.isZero });
+            
         }
-        
 
 
         // if (this.state.isRunning === true) {
@@ -101,7 +111,7 @@ class Board extends Component {
 
     handlePattern(e) {
         //Insert pattern
-        var nextGeneration = Array(50).fill().map(x => Array(50).fill(0))
+        var nextGeneration = new Array(50).fill([]).map(x => new Array(50).fill(0))
         this.setState({ 'grid': nextGeneration })
         switch (e.target.value) {
             case 'Random':
@@ -202,7 +212,21 @@ class Board extends Component {
                 this.setState({ grid: nextGeneration })
                 break;
             case 'Pattern2':
-                alert('You clicked Pattern2')
+                for(let i = 0; i < 50; i++){
+                    for(let j = 0; j<50; j++){
+                        switch (i) {
+                            case 24:
+                                if(j === 23|| j===24||j===25){
+                                    nextGeneration[i][j] = 1
+                                }
+                                break;
+                        
+                            default:
+                                nextGeneration[i][j] = 0
+                                break;
+                        }
+                    }
+                }
                 break;
             case 'Pattern3':
                 alert('You clicked Pattern3')
@@ -241,7 +265,7 @@ class Board extends Component {
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <button style={{ marginLeft: '1rem', marginTop: '1rem' }} value='Random' onClick={this.handlePattern}>Random</button>
                         <button style={{ marginLeft: '1rem', marginTop: '1rem' }} value='Pattern1' onClick={this.handlePattern}>Lambda Pattern</button>
-                        <button style={{ marginLeft: '1rem', marginTop: '1rem' }} value='Pattern2' onClick={this.handlePattern}>Pattern2</button>
+                        <button style={{ marginLeft: '1rem', marginTop: '1rem' }} value='Pattern2' onClick={this.handlePattern}>Blinker</button>
                         <button style={{ marginLeft: '1rem', marginTop: '1rem' }} value='Pattern3' onClick={this.handlePattern}>Pattern3</button>
                     </div>
                 </div>
