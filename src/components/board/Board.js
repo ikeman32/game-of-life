@@ -31,54 +31,47 @@ class Board extends Component {
     // }
 
     handleLoop() {
-        //alert(running)
-        
-        //let interval = 0
         if (this.state.isRunning) {
-            //interval += 1
+            
             let nextGen = new Array(50).fill([]).map(x => new Array(50).fill(0))
             for (let i = 0; i < 50; i++) {
                 for (let j = 0; j < 50; j++) {
                     let cells= this.countCells(this.state.grid, i, j)
                     if (this.state.grid[i][j] === 0 && cells === 3) {
                         nextGen[i][j] = 1
-                        //alert("yep")
+                        
                     }
                     else if (this.state.grid[i][j] === 1 && (cells < 2 || cells > 3)) {
                         nextGen[i][j] = 0
-                        //alert("yep")
+                        
                     }
                     else {
                         nextGen[i][j] = this.state.grid[i][j]
-                        //alert("yep")
                     }
-                    //console.table("cells",cells)
                 }
 
             }
             
             this.setState({ grid: nextGen })
-            //if(!interval===1000) start_position:;
-            //break;
         }
     }
 
     handleStart() {
         
         //Start the game
-        this.setState({ 'isRunning': true },()=>this.handleLoop())
-        
+        this.setState({ 'isRunning': true })
+        this.intervalid = setInterval(this.handleLoop,1000)
 
     }
 
     handleStop() {
         //Stop the game
-        this.setState({ 'isRunning': false }, ()=> this.handleLoop())
-
+        this.setState({ 'isRunning': false })
+        clearInterval(this.intervalid)
     }
 
     countCells(grid, x, y) {
-        //alert("counting")
+        //Count the surrounding cells
         let sum = 0;
         for (let i = -1; i < 2; i++) {
             for (let j = -1; j < 2; j++) {
@@ -87,26 +80,20 @@ class Board extends Component {
                 sum += grid[col][row];
             }
         }
+        //Don't count original cell
         sum -= grid[x][y];
         return sum;
     }
 
     handleState(x, y) {
+        //Update the board if the state changes
         const g = this.state.grid
-        
-        
         if (this.state.grid[x][y] === 0) {
             g[x][y] = this.state.isZero === true ? 'burlywood' : 'black';
 
             this.setState({ 'grid': g, 'isZero': !this.state.isZero });
             
         }
-
-
-        // if (this.state.isRunning === true) {
-
-        // }
-
     }
 
     handlePattern(e) {
@@ -115,26 +102,25 @@ class Board extends Component {
         this.setState({ 'grid': nextGeneration })
         switch (e.target.value) {
             case 'Random':
-                //alert('You clicked Random');
                 for (let i = 0; i < 50; i++) {
                     for (let j = 0; j < 50; j++) {
                         nextGeneration[i][j] = (Math.floor(Math.random() * 2))
                     }
                 }
-                //Update state of grid
+                //Update grid state
                 this.setState({ grid: nextGeneration })
-                //console.table(this.state.grid)
                 break;
             case 'Pattern1':
-
+                //Loop through 2D array
                 for (let i = 0; i < 50; i++) {
                     for (let j = 0; j < 50; j++) {
+                        //Stop at 1st dimension and check the 2nd dimension
+                        //then change the nextGeneration array if there are
+                        //any matches otherwise nextGeneration[i][j] is 0
                         switch (i) {
                             case 21:
-
                                 if (j === 23 || j === 24) {
                                     nextGeneration[i][j] = 1;
-                                    console.log(i, j)
                                 }
                                 break;
                             case 22:
@@ -208,7 +194,7 @@ class Board extends Component {
                         }
                     }
                 }
-                //console.table(nextGeneration)
+                //Update the state of grid
                 this.setState({ grid: nextGeneration })
                 break;
             case 'Pattern2':
@@ -227,6 +213,7 @@ class Board extends Component {
                         }
                     }
                 }
+                this.setState({ grid: nextGeneration })
                 break;
             case 'Pattern3':
                 alert('You clicked Pattern3')
