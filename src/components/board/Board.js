@@ -21,11 +21,11 @@ class Board extends Component {
         this.handleLoop = this.handleLoop.bind(this)
     }
     componentWillMount(){
-
+        this.handleLoop(this.state.isRunning)
     }
 
     componentWillUnmount(){
-        
+        this.handleLoop(this.state.isRunning)
     }
 
 
@@ -59,13 +59,13 @@ class Board extends Component {
 
     handleStart() {
         //Start the game
-        this.setState({ 'isRunning': true }, ()=>this.handleLoop(this.state.isRunning))
+        this.setState({ 'isRunning': true })
         
     }
 
     handleStop() {
         //Stop the game
-        this.setState({ 'isRunning': false }, ()=>this.handleLoop(this.state.isRunning))
+        this.setState({ 'isRunning': false } )
 
     }
 
@@ -84,12 +84,13 @@ class Board extends Component {
     }
 
     handleState(x, y) {
+        const g = this.state.grid
         if (this.state.grid[x][y] === 0) {
             g[x][y] = this.state.isZero === true ? 'burlywood' : 'black';
 
             this.setState({ 'grid': g, 'isZero': !this.state.isZero });
         }
-        cb = this.handleLoop
+        
 
 
         // if (this.state.isRunning === true) {
