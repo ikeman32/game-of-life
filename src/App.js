@@ -1,6 +1,9 @@
 import React from 'react';
 import './App.scss';
-import { Board } from './components'
+import { Board} from './components';
+import me from './components/assets/me.jpg';
+import li from './components/assets/li.png';
+import GitHub from './components/assets/GitHub.png';
 
 function App() {
   return (
@@ -28,6 +31,31 @@ function App() {
               </li>
             </ul>
           </p>
+          <br></br>
+          <a href='https://davidhisakson.com/' target='#'>
+          <img src={me} alt='Me'
+            style={{
+              height: '150px',
+              width: '120px',
+              marginRight: '1rem'
+            }}
+            ></img></a>
+            <a href='https://www.linkedin.com/in/david-h-isakson-ii/' target='#'>
+            <img src={li} alt='Linked In'
+            style={{
+              height: '50px',
+              width: '50px',
+              marginRight: '1rem'
+            }}
+            ></img></a>
+            <a href='https://github.com/ikeman32/' target='#'>
+            <img src={GitHub} alt='Github'
+            style={{
+              height: '50px',
+              width: '50px',
+            }}
+            ></img></a>
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;<a href='https://davidhisakson.com/' target='#'>My Portfolio</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href='https://www.linkedin.com/in/david-h-isakson-ii/' target='#'>LinkedIn</a> &nbsp;&nbsp;<a href='https://github.com/ikeman32/' target='#'>Github</a></p>
         </div>
         <div className='about'>
           <h2>About this Algorithm</h2>

@@ -240,6 +240,7 @@ class Board extends Component {
                 this.setState({ grid: nextGeneration })
                 break;
             default:
+                this.setState({ 'grid': nextGeneration })
                 break;
         }
     }
@@ -269,7 +270,8 @@ class Board extends Component {
                         </tbody>
                     </table>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <button style={{ marginLeft: '1rem', marginTop: '1rem' }} value='Random' onClick={this.handlePattern}>Random</button>
+                        <h3 style={{marginLeft: '2rem'}}>Make a selection then click start!</h3>
+                        <button style={{ marginLeft: '1rem'}} value='Random' onClick={this.handlePattern}>Random</button>
                         <button style={{ marginLeft: '1rem', marginTop: '1rem' }} value='Pattern1' onClick={this.handlePattern}>Lambda Pattern</button>
                         <button style={{ marginLeft: '1rem', marginTop: '1rem' }} value='Pattern2' onClick={this.handlePattern}>Blinker</button>
                         <button style={{ marginLeft: '1rem', marginTop: '1rem' }} value='Pattern3' onClick={this.handlePattern}>Beacon</button>
@@ -280,6 +282,7 @@ class Board extends Component {
                 <div style={{ width: '50%' }}>
                     <button style={{ marginLeft: '40%' }} onClick={this.handleStart}>Start</button>
                     <button style={{ marginLeft: '1rem', marginTop: '1rem' }} onClick={this.handleStop}>Stop</button>
+                    <button style={{ marginLeft: '1rem', marginTop: '1rem' }} onClick={this.handlePattern}>Clear</button>
                 </div>
 
             </div>
